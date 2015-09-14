@@ -1,5 +1,5 @@
 var req = new XMLHttpRequest();
-req.open('GET', 'center.php', true);
+req.open('GET', 'api.php/center', true);
 req.onreadystatechange = function () {
   if (req.readyState == 4 && req.status == 200){
     console.log(req.responseText)
