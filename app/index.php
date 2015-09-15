@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>osm threejs renderer</title>
+    <title>OSM threejs renderer</title>
 
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
     <!-- Place favicon.ico in the root directory -->
@@ -54,6 +54,7 @@
     <!-- build:js scripts/vendor.js -->
     <!-- bower:js -->
     <script src="/bower_components/jquery/dist/jquery.js"></script>
+    <script src="/bower_components/three.js/three.min.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -73,7 +74,8 @@
     <!-- endbuild -->
 
     <!-- build:js scripts/main.js -->
-    <script src="scripts/main.js"></script>
+    <script src="dist/scripts/environment.js"></script>
+    <script src="dist/scripts/main.js"></script>
     <!-- endbuild -->
   </body>
 </html>

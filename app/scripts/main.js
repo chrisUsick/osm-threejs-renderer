@@ -1,3 +1,4 @@
+'use strict'
 var req = new XMLHttpRequest();
 req.open('GET', 'api.php/center', true);
 req.onreadystatechange = function () {
@@ -19,4 +20,6 @@ function getText(elem) {
   return elem.firstChild.nodeValue;
 }
 
-console.log('foo');
+var env = new Environment();
+document.body.appendChild( env.renderer.domElement );
+env.animate();
