@@ -38,7 +38,7 @@ gulp.task('lint:test', lint('test/spec/**/*.js', testLintOptions));
 gulp.task('scripts', () => {
   return gulp.src('app/scripts/**/*.js')
     .pipe($.sourcemaps.init())
-    .pipe($.babel())
+    .pipe($.babel( ))
     .pipe($.sourcemaps.write('.'))
     .pipe(gulp.dest('app/dist/scripts'));
 })
@@ -115,6 +115,10 @@ gulp.task('serve', ['styles', 'scripts', 'fonts'], () => {
   gulp.watch('app/fonts/**/*', ['fonts']);
   gulp.watch('bower.json', ['wiredep', 'fonts']);
 });
+
+gulp.task('watch', ['scripts'], () => {
+  gulp.watch('app/scripts/**/*.js', ['scripts'])
+})
 
 gulp.task('serve:dist', () => {
   browserSync({

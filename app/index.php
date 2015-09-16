@@ -33,9 +33,9 @@
         <h3 class="text-muted">osm threejs renderer</h3>
       </div>
 
-      <pre id="output">
 
-      </pre>
+      <div id="three">
+      </div>
       <div class="footer">
         <p>♥ from the Yeoman team</p>
       </div>
@@ -55,6 +55,7 @@
     <!-- bower:js -->
     <script src="/bower_components/jquery/dist/jquery.js"></script>
     <script src="/bower_components/three.js/three.min.js"></script>
+    <script src="/bower_components/bluebird/js/browser/bluebird.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -74,8 +75,12 @@
     <!-- endbuild -->
 
     <!-- build:js scripts/main.js -->
+    <script src="dist/scripts/browser-polyfill.min.js"></script>
     <script src="dist/scripts/environment.js"></script>
     <script src="dist/scripts/main.js"></script>
+
+    <!-- <script src="scripts/environment.js"></script>
+    <script src="scripts/main.js"></script> -->
     <!-- endbuild -->
   </body>
 </html>

@@ -3,7 +3,8 @@
   "private": true,
   "dependencies": {
     "bootstrap": "~3.3.5",
-    "three.js": "~0.71.0"
+    "three.js": "~0.71.0",
+    "bluebird": "~2.10.0"
   },
   "overrides": {
     "bootstrap": {
