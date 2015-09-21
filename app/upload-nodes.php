@@ -5,12 +5,11 @@
 * insert ways into db
 * relations aren't important right now
 */
-require 'node.php';
+require 'schema.php';
 require 'config.php';
 $xml = DOMDocument::load('map.osm');
 // echo ($xml->getElementsByTagName("node")->item(0)->nodeName);
-$db = new PDO(DB_DSN, DB_USER, DB_PASS);
-$db->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
+$db = getConnection();
 function insert_node($node)
 {
  global $db;

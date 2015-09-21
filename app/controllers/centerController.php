@@ -26,9 +26,8 @@ class Center
   }
   public function index ()
   {
-    $db = new PDO(DB_DSN, DB_USER, DB_PASS);
-    $db->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
-    $query = $db->prepare("SELECT AVG(latitude) AS lat, AVG(longitude) as lon FROM nodes;");
+    $db = getConnection();
+    $query = $db->prepare("SELECT (MAX(latitude)-MIN(latitude))/2 AS lat, (MAX(longitude)-MIN(longitude))/2 as lon FROM nodes;");
     $query->execute();
     if ($query->rowCount() > 0){
       $row = $query->fetch(PDO::FETCH_ASSOC);

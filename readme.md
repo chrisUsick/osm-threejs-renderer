@@ -12,6 +12,14 @@ CREATE TABLE nodes (
 );
 ```
 
+```sql
+CREATE TABLE nodes (
+     node_id int primary key NOT NULL,
+     visible boolean NOT NULL,
+     coords POINT(4326)
+);
+```
+
 ## ways
 
 ```sql
@@ -30,6 +38,26 @@ CREATE TABLE way_nodes (
     -- order of nodes in a way
     sequence_id bigint NOT NULL
 );
+```
+
+# spacial search procedure
+
+```sql
+CREATE FUNCTION haversine(
+        lat1 FLOAT, lon1 FLOAT,
+        lat2 FLOAT, lon2 FLOAT
+     ) RETURNS FLOAT
+    NO SQL DETERMINISTIC
+    COMMENT 'Returns the distance in degrees on the Earth
+             between two known points of latitude and longitude'
+BEGIN
+    RETURN DEGREES(ACOS(
+              COS(RADIANS(lat1)) *
+              COS(RADIANS(lat2)) *
+              COS(RADIANS(lon2) - RADIANS(lon1)) +
+              SIN(RADIANS(lat1)) * SIN(RADIANS(lat2))
+            ));
+END$$
 ```
 
 # Application structure

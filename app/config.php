@@ -1,5 +1,11 @@
 <?php
-define('DB_DSN','mysql:host=localhost;dbname=osm;charset=utf8');
-define('DB_USER','osm');
-define('DB_PASS','osm');
+define('DB_DSN','pgsql:host=localhost;port=5432;dbname=osm;');
+define('DB_USER','postgres');
+define('DB_PASS','postgres');
+function getConnection()
+{
+  $db = new PDO(DB_DSN, DB_USER, DB_PASS);
+  $db->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
+  return $db;
+}
  ?>
