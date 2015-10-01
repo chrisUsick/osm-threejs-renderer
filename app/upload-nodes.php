@@ -13,8 +13,8 @@ $db = getConnection();
 function insert_node($node)
 {
  global $db;
- $query = $db->prepare("INSERT INTO nodes (node_id, latitude, longitude, visible)
-  values (:id, :lat, :lon, :vis)");
+ $query = $db->prepare("INSERT INTO nodes (node_id, visible, coords)
+  values (:id, :vis, ST_SetSRID(ST_MakePoint(:lat, :lon), 4326))");
  return $query->execute($node->toArray());
 }
 

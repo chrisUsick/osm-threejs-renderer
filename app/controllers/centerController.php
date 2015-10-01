@@ -27,7 +27,7 @@ class Center
   public function index ()
   {
     $db = getConnection();
-    $query = $db->prepare("SELECT (MAX(latitude)-MIN(latitude))/2 AS lat, (MAX(longitude)-MIN(longitude))/2 as lon FROM nodes;");
+    $query = $db->prepare("SELECT (MAX(ST_X(coords))-MIN(ST_X(coords)))/2 AS lat, (MAX(ST_Y(coords))-MIN(ST_Y(coords)))/2 as lon FROM nodes;");
     $query->execute();
     if ($query->rowCount() > 0){
       $row = $query->fetch(PDO::FETCH_ASSOC);

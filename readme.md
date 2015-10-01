@@ -4,6 +4,7 @@ from [](https://git.openstreetmap.org/rails.git/blob/HEAD:/db/structure.sql)
 ## nodes
 
 ```sql
+-- mysql, old
 CREATE TABLE nodes (
      node_id bigint NOT NULL,
      latitude decimal(8,6) NOT NULL,
@@ -14,7 +15,7 @@ CREATE TABLE nodes (
 
 ```sql
 CREATE TABLE nodes (
-     node_id int primary key NOT NULL,
+     node_id bigint primary key NOT NULL,
      visible boolean NOT NULL,
      coords POINT(4326)
 );
@@ -23,8 +24,16 @@ CREATE TABLE nodes (
 ## ways
 
 ```sql
+-- mysql, old
 CREATE TABLE ways (
     way_id bigint DEFAULT 0 NOT NULL,
+    visible boolean DEFAULT true NOT NULL,
+);
+```
+
+```sql
+CREATE TABLE ways (
+    way_id bigint primary key NOT NULL,
     visible boolean DEFAULT true NOT NULL,
 );
 ```
@@ -32,11 +41,22 @@ CREATE TABLE ways (
 ## way_nodes
 
 ```sql
+-- mysql, old
 CREATE TABLE way_nodes (
     way_id bigint NOT NULL,
     node_id bigint NOT NULL,
     -- order of nodes in a way
     sequence_id bigint NOT NULL
+);
+```
+
+```sql
+CREATE TABLE way_nodes (
+    way_id bigint NOT NULL,
+    node_id bigint NOT NULL,
+    -- order of nodes in a way
+    sequence_id bigint NOT NULL
+    add primary key (way_id, node_id, sequence_id)
 );
 ```
 

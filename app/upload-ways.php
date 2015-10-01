@@ -25,10 +25,16 @@ function insert_way_nodes($way)
 {
   global $db;
   $nds = $way->get_node_refs();
-  foreach ($nds as $nd) {
+  for ($i = 0; $i < count($nds); $i++) {
+    $nd = $nds[$i];
+    // $seq_id = array_search($nd, $nds);
+    echo "inserting node in sequence $i; \n";
     $query = $db->prepare("INSERT INTO way_nodes (way_id, node_id, sequence_id)
       values (:way_id, :node_id, :sequence_id)");
-    $params = array("way_id"=>$way->id, "node_id"=>$nd, "sequence_id"=>array_search($nd, $nds));
+    $params = array("way_id"=>$way->id, "node_id"=>$nd, "sequence_id"=>$i);
+    if ($way->id == 32529049 && $nd == 365793340) {
+      // echo $way->id;
+    }
     $query->execute($params);
   }
 }
@@ -38,20 +44,24 @@ function delete_ways()
   global $db;
   // delete cascade on forgien key of way_nodes ensures
   // all way_nodes are deleted too
-  $query = $db->prepare("DELETE FROM ways");
-  return $query->execute();
+  $query = $db->prepare("DELETE FROM ways;");
+  $deleteWayNodes = $db->prepare(" DELETE FROM way_nodes");
+  return ($query->execute() && $deleteWayNodes->execute());
 }
 
 $del_success = delete_ways();
-echo $del_success;
+if ($del_success) {
+  echo "delete succeeded\n";
+}
 // insert all nodes into db
 $ways = $xml->getElementsByTagName("way");
 foreach ($ways as $wayXML) {
   // print_r($wayXML);
   $way = Way::fromXML($wayXML);
+  echo "inserting way: $way->id; \n";
   $success = insert_way($way);
   $nd_success = insert_way_nodes($way);
-  echo "$success $nd_success " . " {$wayXML->getAttribute('id')}" . "\n";
+  // echo "$success $nd_success " . " {$wayXML->getAttribute('id')}" . "\n";
 }
 echo "{$ways->length} ways inserted";
  ?>
