@@ -1,15 +1,15 @@
 <?php
 /**
- * Arrayable
- */
+* Arrayable
+*/
 class Arrayable
 {
   public function toArray() {
-   $res = array();
-   foreach ($this as $key => $value) {
-     $res[$key] = $value;
-   }
-   return $res;
+    $res = array();
+    foreach ($this as $key => $value) {
+      $res[$key] = $value;
+    }
+    return $res;
   }
 }
 
@@ -19,31 +19,40 @@ class Arrayable
 */
 class Node extends Arrayable
 {
- public $id;
- public $lat;
- public $lon;
- public $vis;
- function __construct($id, $lat, $lon, $vis)
- {
-   $this->id = $id;
-   $this->lat = $lat;
-   $this->lon = $lon;
-   $this->vis = $vis;
- }
- public function fromXML($node)
- {
-   return new Node($node->getAttribute('id'),
+  public $id;
+  public $lat;
+  public $lon;
+  public $vis;
+  function __construct($id, $lat, $lon, $vis)
+  {
+    $this->id = $id;
+    $this->lat = $lat;
+    $this->lon = $lon;
+    $this->vis = $vis;
+  }
+
+  /**
+   * normalize the coordinate from SRID(4326) to regular cartesian coordinates
+   */
+  public function normalize($centerX, $centerY)
+  {
+    $this->lat = ($this->lat - $centerX) * 110574.61087757687;
+    $this->lon = ($this->lon - $centerY) * 111302.61697430261;
+  }
+  public static function fromXML($node)
+  {
+    return new Node($node->getAttribute('id'),
     $node->getAttribute('lat'),
     $node->getAttribute('lon'),
     $node->getAttribute('visible')
   );
- }
+}
 
 }
 
 /**
- * way
- */
+* way
+*/
 class Way extends Arrayable
 {
   public $id;
@@ -63,8 +72,8 @@ class Way extends Arrayable
       array_push($node_refs, $nd->getAttribute("ref"));
     }
     return new Way($node->getAttribute("id"),
-      $node->getAttribute("visible"),
-      $node_refs);
+                    $node->getAttribute("visible"),
+                    $node_refs);
   }
 
   public function get_node_refs()
@@ -73,4 +82,4 @@ class Way extends Arrayable
   }
 }
 
- ?>
+?>

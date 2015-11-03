@@ -14,11 +14,13 @@ CREATE TABLE nodes (
 ```
 
 ```sql
+
 CREATE TABLE nodes (
      node_id bigint primary key NOT NULL,
-     visible boolean NOT NULL,
-     coords POINT(4326)
+     visible boolean NOT NULL
 );
+# create a coords column with no srid
+select AddGeometryColumn('nodes', 'coords', 0, 'POINT', 2);
 ```
 
 ## ways
