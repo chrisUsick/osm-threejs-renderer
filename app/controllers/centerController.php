@@ -27,15 +27,11 @@ class Center
   public function index ()
   {
     $db = getConnection();
-    $query = $db->prepare("SELECT (MAX(ST_X(coords))-MIN(ST_X(coords)))/2 AS lat, (MAX(ST_Y(coords))-MIN(ST_Y(coords)))/2 as lon FROM nodes;");
+    $query = $db->prepare("SELECT (MAX(ST_X(coords))+MIN(ST_X(coords)))/2 AS lat, (MAX(ST_Y(coords))+MIN(ST_Y(coords)))/2 as lon FROM nodes;");
     $query->execute();
     if ($query->rowCount() > 0){
-      $row = $query->fetch(PDO::FETCH_ASSOC);
-      $xml = new DOMDocument();
-      $center = createElement($xml, $xml, 'center');
-      createElement($xml, $center, 'latitude', $row['lat']);
-      createElement($xml, $center, 'longitude', $row['lon']);
-      return $xml->saveXML();
+      $row = $query->fetch();
+      json_encode(['x'=>$row['x']])
     }
   }
 }
