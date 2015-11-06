@@ -1,17 +1,21 @@
 'use strict'
 class Environment {
-  constructor(container, {center, nodes}) {
+  constructor(container, {nodes}) {
     this.scene = new THREE.Scene();
     this.width = container.offsetWidth;
     this.height = window.innerHeight - 10;
 
     this.camera = new THREE.PerspectiveCamera( 75, this.width / this.height, 1, 10000 );
-    this.camera.position.y = 10;
+    this.camera.position.y = 250;
 
     this.camera.lookAt(this.camera.up.negate());
 
-    let cube = this.createCube({x:1,y:0,z:2});
-    this.scene.add(cube);
+
+    for (var node of nodes) {
+      node.y = 0;
+      let cube = this.createCube(node);
+      this.scene.add(cube);
+    }
 
     this.renderer = new THREE.WebGLRenderer();
     this.renderer.setSize( this.width, this.height );

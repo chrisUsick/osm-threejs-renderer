@@ -21,7 +21,7 @@ function request({method = 'GET', url}) {
     req.open(method, url);
     req.onreadystatechange = () => {
       if (req.readyState == 4 && req.status == 200){
-        resolve(req.responseXML);
+        resolve(JSON.parse(req.responseText));
       } else if (req.readyState == 4){
         reject(req);
       }
@@ -34,9 +34,9 @@ function getText(elem) {
   return elem.firstChild.nodeValue;
 }
 
-// var env = new Environment(document.getElementById('three'));
-// env.animate();
 (P.coroutine(function* () {
-  var center = yield request({url:'api.php/center'});
-  console.log(center);
+  // var center = yield request({url:'api.php/center'});
+  var nodes = yield request({url:'api.php/centerWay'})
+  var env = new Environment(document.getElementById('three'), {nodes});
+  env.animate();
 }))();
