@@ -54,7 +54,7 @@
     <!-- build:js scripts/vendor.js -->
     <!-- bower:js -->
     <script src="/bower_components/jquery/dist/jquery.js"></script>
-    <script src="/bower_components/three.js/three.min.js"></script>
+    <script src="/bower_components/three.js/three.js"></script>
     <script src="/bower_components/bluebird/js/browser/bluebird.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
